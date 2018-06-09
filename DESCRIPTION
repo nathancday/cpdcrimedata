@@ -1,0 +1,12 @@
+Package: cpdcrimedata
+Type: Package
+Title: Geocoded police reports from Charlottesvile, Virginia, USA.
+Version: 0.1.0
+Author: c(person("Nathan", "Day", , "nathancday@gmail.com", c("aut", "cre")))
+Maintainer: Nathan Day <nathancday@gmail.com>
+Depends: magrittr, tidyverse
+Description: Data ranges the last 5 years and excludes homicides, suicides and sexual offenses. 
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
