@@ -1,6 +1,6 @@
 ---
 updated: "2018/06/09"
-version: v0.1.0
+version: 0.1.0
 ---
 
 # cpdcrimedata
