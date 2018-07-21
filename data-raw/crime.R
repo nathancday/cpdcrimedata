@@ -10,6 +10,11 @@ library(ggmap)
 library(magrittr)
 library(tidyverse)
 
+library(cpdcrimedata)
+
+library(devtools)
+
+head(crime)
 
 ### Inputs --------------------------------------------------------------
 
@@ -22,8 +27,8 @@ crime_raw <- geojson_read("https://opendata.arcgis.com/datasets/d1877e350fad45d1
 if (nrow(crime_raw) == nrow(crime)) {
     stop("Version looks to be most current already!")
 } else {
-    write_csv(crime_raw, "data-raw/crime_raw.csv")
-
+    
+    write_csv(crime_raw, paste0("data-raw/crime_raw_", Sys.Date(), ".csv"))
 
     ## Previously geo-coded addresses
     addresses_prior <- read_csv("data-raw/addresses.csv")
@@ -41,6 +46,9 @@ if (nrow(crime_raw) == nrow(crime)) {
     bad <- anti_join(crime_raw, addresses)
 
     ### Geocode bad ------------------------------------------------------
+    
+    # lots of "bad" addresses arein  "Stree1 / Stree2" style
+    bad$address %<>% gsub("/.*", "Charlotesville VA", .)
 
     bad %<>% re_geocode() %>%
         mutate(extracted = map(geocode, extract_geocode)) %>%
@@ -64,7 +72,7 @@ if (nrow(crime_raw) == nrow(crime)) {
 
     if (nrow(addresses) > nrow(addresses_prior)) {
         use_data(addresses, overwrite = TRUE)
-        write_csv(addresses, "data-raw/addresses.csv")
+        write_csv(addresses, paste0("data-raw/addresses_", Sys.Date(), ".csv"))
         }
 
     if (nrow(crime_raw) == nrow(crime)) {

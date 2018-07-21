@@ -42,16 +42,24 @@ extract_geocode <- function(api_result) {
 #' @export
 re_geocode <- function(data, retry = 2) {
 
-    data %<>% mutate(geocode = ggmap::geocode(address, source = "google", output = "all"),
-                  geocode_good = map_lgl(geocode, ~.["status"] == 'OK'))
+    data %<>%
+        mutate(address = as.character(address),
+               geocode = map(address, ~ggmap::geocode(.,
+                                                      source = "google",
+                                                      output = "all")),
+               geocode_good = map_lgl(geocode, ~.["status"] == "OK"))
 
     query_count <- nrow(data)
 
     while (retry > 0 & (sum(data$geocode_good) != nrow(data) ) ) {
         retry <- retry - 1
         query_count <- query_count + sum(!data$geocode_good)
-        data %<>% filter(!geocode_good) %>%
-            mutate(geocode = ggmap::geocode(address, source = "google", output = "all")) %>%
+        
+        data %<>%
+            filter(!geocode_good) %>%
+            mutate(geocode = ggmap::geocode(address,
+                                            source = "google",
+                                            output = "all")) %>%
             bind_rows(filter(data, geocode_good))
     }
 
