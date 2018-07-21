@@ -4,7 +4,7 @@ Title: Geocoded police reports from Charlottesvile, Virginia, USA.
 Version: 0.1.01
 Author: c(person("Nathan", "Day", , "nathancday@gmail.com", c("aut", "cre")))
 Maintainer: Nathan Day <nathancday@gmail.com>
-Depends: magrittr, tidyverse
+Imports: magrittr, tidyverse
 Description: Police report data for Challotesville, VA covering the last 5 years. Excludes homicides/suicides/sexual-offenses. 
 License: MIT
 Encoding: UTF-8

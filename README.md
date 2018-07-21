@@ -9,8 +9,9 @@ This package provides `crime`, a geocoded version of the Charlottesville Police 
 
 ```
 devtools::install_github("nathancday/cpdcrimedata")
-# installs library(tidyverse)
 ```
+
+It imports `magrittr` and `tidyverse` so both of those packages should be installed.
 
 ## CPD Crime Data
 
@@ -21,8 +22,12 @@ Original report is available on the [Charlottesville Opend Data Portal](http://o
 
 ### Other things
 
-It also contains an accessory dataset, `addresses` of successfully geocoded addresses (in and around Charlottesville, Virginia) that may be useful to another analysis.
+It also contains an accessory dataset:
+* `addresses` with geocoded addresses for 100 block numbers (in and around Charlottesville, Virginia). This is a living list of all of the address this project has seen and succesfully geocoded.
 
-Two geocode query tool functions are exported too. `?re_geocode` will automatically reattempt any failed queries in a set. `?extract_geocode` pulls a tibble out of the results `?ggmap::geocode()`.
+Two geocode query tool functions:
+* `re_geocode` is a wrapper around `ggmap::geo_code()` to automatically reattempt any failed queries in a set.
+
+* `extract_geocode` pulls a tibble from the verbose GoogleMap API results, when `ggmap::geocode(output == "all")`.
 
 
