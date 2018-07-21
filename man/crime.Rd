@@ -5,7 +5,7 @@
 \alias{crime}
 \title{CPD Crime Data}
 \format{A data frame with 13 variables, the first 9 are directly from the
-the original report, the extra 4 are: \code{lat}, \code{lon} \code{formatted_address}, and
+the original report, the extra 4 are: \code{lat}, \code{lon}, \code{formatted_address}, and
 \code{loc_type}}
 \usage{
 crime

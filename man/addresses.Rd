@@ -11,7 +11,8 @@ and \code{?ggmap::geocode()} for more.}
 addresses
 }
 \description{
-On going list of addresses from the \href{http://opendata.charlottesville.org/datasets/crime-data}{CPD Crime Reports}, that have been successfully geocode via GoogleMaps
+On going list of addresses from the \href{http://opendata.charlottesville.org/datasets/crime-data}{CPD Crime Reports},
+that have been successfully geocode via GoogleMaps
 API. BlockNumber values of \code{0} or \code{NA} get recoded as `100``, for better accuracy.
 Useful for saving that query limit.
 }
