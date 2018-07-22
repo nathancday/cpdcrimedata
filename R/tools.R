@@ -44,9 +44,7 @@ re_geocode <- function(data, retry = 2) {
 
     data %<>%
         mutate(address = as.character(address),
-               geocode = map(address, ~ggmap::geocode(.,
-                                                      source = "google",
-                                                      output = "all")),
+               geocode = map(address, googleway::google_geocode),
                geocode_good = map_lgl(geocode, ~.["status"] == "OK"))
 
     query_count <- nrow(data)
@@ -57,9 +55,7 @@ re_geocode <- function(data, retry = 2) {
         
         data %<>%
             filter(!geocode_good) %>%
-            mutate(geocode = ggmap::geocode(address,
-                                            source = "google",
-                                            output = "all")) %>%
+            mutate(geocode = googleway::google_geocode) %>%
             bind_rows(filter(data, geocode_good))
     }
 
