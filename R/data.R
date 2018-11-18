@@ -9,7 +9,7 @@
 #' @format A data frame with 13 variables, the first 9 are directly from the
 #' the original report, the extra 4 are: `lat`, `lon`, `formatted_address`, and 
 #' `loc_type`
-"crime"
+"cpd_crime"
 
 #' Geocoded addresses to the hundred-block
 #'
@@ -21,4 +21,4 @@
 #' @format A data frame with 5 variables: \code{address} (from the original report), \code{lat}, \code{lon} \code{formatted_address} (address returned by API), and
 #'   \code{loc_type}. See [Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro)
 #'   and `?ggmap::geocode()` for more.
-"addresses"
+"cville_addresses"
