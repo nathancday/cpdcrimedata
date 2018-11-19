@@ -3,6 +3,8 @@
 cpdcrimedata
 ============
 
+\[![Build Status](https://travis-ci.com/nathancday/cpdcrimedata.svg?branch=master)
+
 This package provides `cpd_crime`, a geocoded version of the Charlottesville Police Assistance Report that was uploaded to the Charlottesville OpenData Portal on 2018-08-31.
 
 To install this package from GitHub:

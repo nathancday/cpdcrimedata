@@ -4,7 +4,7 @@
 #' update package data.
 #' ----
 
-update <- "2018-08-31" # reflects dataset date of update on ODP
+update <- "2018-08-28" # reflects dataset date of update on ODP
 
 ### Globals -------------------------------------------------------------
 library(geojsonio)
@@ -16,6 +16,7 @@ library(magrittr)
 library(tidyverse)
 
 library(devtools)
+load_all(".")
 
 # library(ggmap)
 # head(crime) # model data
@@ -96,7 +97,7 @@ crime_raw <- geojson_read("https://opendata.arcgis.com/datasets/d1877e350fad45d1
     .[["features"]] %>%
     .[["properties"]]
 
-if (nrow(crime_raw) == nrow(crime)) {
+if (nrow(crime_raw) == nrow(cpd_crime)) {
     stop("Version looks to be most current already!")
 } else {
     
