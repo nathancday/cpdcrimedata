@@ -4,10 +4,10 @@
 #' update package data.
 #' ----
 
-update <- "2018-08-28" # reflects dataset date of update on ODP
+update <- "2018-11-26" # reflects dataset date of update on ODP
 
 ### Globals -------------------------------------------------------------
-library(geojsonio)
+# library(geojsonio)
 
 library(googleway)
 set_key(Sys.getenv("GOOGLE_API"))
@@ -18,8 +18,6 @@ library(tidyverse)
 library(devtools)
 load_all(".")
 
-# library(ggmap)
-# head(crime) # model data
 
 # Tools -------------------------------------------------------------------
 
@@ -86,16 +84,20 @@ re_geocode <- function(.data, retry = 2) {
     }
     
     message(cat( (sum(.data$geocode_good) / nrow(.data))*100, "% of addresses geocoded successfully, using", query_count, "API queries."))
-    return(data)
+    return(.data)
 }
 
 ### Inputs --------------------------------------------------------------
 
 ## get current CPD report from ODP
-crime_raw <- geojson_read("https://opendata.arcgis.com/datasets/d1877e350fad45d192d233d2b2600156_6.geojson",
+crime_raw <- geojsonio::geojson_read("https://opendata.arcgis.com/datasets/d1877e350fad45d192d233d2b2600156_6.geojson",
                            parse = TRUE) %>%
     .[["features"]] %>%
     .[["properties"]]
+
+last_version <- dir("data-raw", "address", full.names = TRUE) %>%
+    sort(decreasing = TRUE) %>%
+    .[1]
 
 if (nrow(crime_raw) == nrow(cpd_crime)) {
     stop("Version looks to be most current already!")
@@ -104,7 +106,7 @@ if (nrow(crime_raw) == nrow(cpd_crime)) {
     write_csv(crime_raw, paste0("data-raw/crime_raw_", update, ".csv"))
 
     ## Previously geo-coded addresses
-    addresses_prior <- read_csv("data-raw/addresses.csv")
+    addresses_prior <- read_csv(last_version)
 
     ### Clean ---------------------------------------------------------------
 
@@ -146,7 +148,7 @@ if (nrow(crime_raw) == nrow(cpd_crime)) {
 
     if (nrow(cville_addresses) > nrow(addresses_prior)) {
         use_data(cville_addresses, overwrite = TRUE)
-        write_csv(cville_addresses, paste0("data-raw/cville_addresses_", Sys.Date(), ".csv"))
+        write_csv(cville_addresses, paste0("data-raw/cville_addresses_", update, ".csv"))
         }
 
     if (nrow(crime_raw) == nrow(cpd_crime)) {
