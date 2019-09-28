@@ -7,7 +7,7 @@
 #' included with `NA` values in the columns related to geocoding.
 #' @md
 #' @format A data frame with 13 variables, the first 9 are directly from the
-#' the original report, the extra 4 are: `lat`, `lon`, `formatted_address`, and 
+#' the original report, the extra 4 are: `lat`, `lon`, `formatted_address`, and
 #' `loc_type`
 "cpd_crime"
 
